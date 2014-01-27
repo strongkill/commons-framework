@@ -345,7 +345,7 @@ public interface BasicService {
 	 * 	<i>select * from table where id=:id and code in(:codes) (×)</i>
 	 * </pre>
 	 * 
-	 * @param orderBies
+	 * @param orderBy
 	 *            排序信息
 	 * @param sql
 	 *            sql语句
@@ -354,7 +354,7 @@ public interface BasicService {
 	 * @return 单列返回查询列对应类型的集合;多列返回{@link ResultMap}集合
 	 * @author 卢俊生, 2012-11-1
 	 */
-	public <E> List<E> list(List<OrderBy> orderBies, String sql, Object... args);
+	public <E> List<E> list(OrderBy orderBy, String sql, Object... args);
 
 	/**
 	 * 查询列表
@@ -367,7 +367,7 @@ public interface BasicService {
 	 * 	<i>select * from table where id=? and code=? (×)</i>
 	 * </pre>
 	 * 
-	 * @param orderBies
+	 * @param orderBy
 	 *            排序信息
 	 * @param sql
 	 *            sql语句
@@ -376,7 +376,7 @@ public interface BasicService {
 	 * @return 单列返回查询列对应类型的集合;多列返回{@link ResultMap}集合
 	 * @author 卢俊生, 2012-11-1
 	 */
-	public <E> List<E> list(List<OrderBy> orderBies, String sql, Map<?, ?> map);
+	public <E> List<E> list(OrderBy orderBy, String sql, Map<?, ?> map);
 
 	/**
 	 * 查询列表
@@ -390,7 +390,7 @@ public interface BasicService {
 	 * 
 	 * @param clazz
 	 *            Javabean(clazz中必须有所有查询字段别名的setter)
-	 * @param orderBies
+	 * @param orderBy
 	 *            排序信息
 	 * @param sql
 	 *            sql语句
@@ -399,7 +399,7 @@ public interface BasicService {
 	 * @return clazz集合
 	 * @author 卢俊生, 2012-11-1
 	 */
-	public <E> List<E> list(Class<E> clazz, List<OrderBy> orderBies, String sql, Object... args);
+	public <E> List<E> list(Class<E> clazz, OrderBy orderBy, String sql, Object... args);
 
 	/**
 	 * 查询列表
@@ -414,7 +414,7 @@ public interface BasicService {
 	 * 
 	 * @param clazz
 	 *            Javabean(clazz中必须有所有查询字段别名的setter)
-	 * @param orderBies
+	 * @param orderBy
 	 *            排序信息
 	 * @param sql
 	 *            sql语句
@@ -423,7 +423,7 @@ public interface BasicService {
 	 * @return clazz集合
 	 * @author 卢俊生, 2012-11-1
 	 */
-	public <E> List<E> list(Class<E> clazz, List<OrderBy> orderBies, String sql, Map<?, ?> map);
+	public <E> List<E> list(Class<E> clazz, OrderBy orderBy, String sql, Map<?, ?> map);
 
 	/**
 	 * 查询列表
@@ -712,7 +712,7 @@ public interface BasicService {
 	 * @return Object[]集合
 	 * @author 卢俊生, 2012-8-28
 	 */
-	public List<Object[]> arrays(List<OrderBy> orderBies, String sql, Object... args);
+	public List<Object[]> arrays(OrderBy orderBy, String sql, Object... args);
 
 	/**
 	 * 查询列表
@@ -732,7 +732,7 @@ public interface BasicService {
 	 * @return Object[]集合
 	 * @author 卢俊生, 2012-8-28
 	 */
-	public List<Object[]> arrays(List<OrderBy> orderBies, String sql, Map<?, ?> map);
+	public List<Object[]> arrays(OrderBy orderBy, String sql, Map<?, ?> map);
 
 	/**
 	 * 查询列表

@@ -48,6 +48,37 @@ public class Error {
 		}
 	}
 
+	public String errMsg() {
+		String msg = "";
+		if (messages != null && !messages.isEmpty()) {
+			msg = subStartTag(messages.get(0));
+			for (int i = 1; i < messages.size(); i++) {
+				msg += "; " + subStartTag(messages.get(i));
+			}
+			msg += ".";
+		}
+		return msg;
+	}
+
+	public String multilineErrMsg() {
+		String msg = "";
+		if (messages != null && !messages.isEmpty()) {
+			msg = subStartTag(messages.get(0));
+			for (int i = 1; i < messages.size(); i++) {
+				msg += ";</br>" + subStartTag(messages.get(i));
+			}
+			msg += ".";
+		}
+		return msg;
+	}
+
+	private static final String subStartTag(String src) {
+		if (src != null && !"".equals(src.trim())) {
+			src = src.trim().replaceFirst("^<[^/<>]*>", "");
+		}
+		return src;
+	}
+
 	public ResponseType getErrorType() {
 		return errorType;
 	}
