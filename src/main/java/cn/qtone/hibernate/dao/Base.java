@@ -51,8 +51,8 @@ public abstract class Base<S extends SharedSessionContract> {
 		Assert.notNull(query, "query is required!");
 		Assert.notNull(pagin, "pagin is required!");
 
-		query.setFirstResult(pagin.getFirst());
-		query.setMaxResults(pagin.getPageSize());
+		query.setFirstResult(pagin.index());
+		query.setMaxResults(pagin.limit());
 		return query;
 	}
 

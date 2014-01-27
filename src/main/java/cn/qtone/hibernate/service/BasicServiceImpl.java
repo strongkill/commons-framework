@@ -98,23 +98,23 @@ public class BasicServiceImpl implements BasicService {
 	}
 
 	@Override
-	public <E> List<E> list(List<OrderBy> orderBies, String sql, Object... args) {
-		return dao.list(orderBies, sql, args);
+	public <E> List<E> list(OrderBy orderBy, String sql, Object... args) {
+		return dao.list(orderBy, sql, args);
 	}
 
 	@Override
-	public <E> List<E> list(List<OrderBy> orderBies, String sql, Map<?, ?> map) {
-		return dao.list(orderBies, sql, map);
+	public <E> List<E> list(OrderBy orderBy, String sql, Map<?, ?> map) {
+		return dao.list(orderBy, sql, map);
 	}
 
 	@Override
-	public <E> List<E> list(Class<E> clazz, List<OrderBy> orderBies, String sql, Object... args) {
-		return dao.list(clazz, orderBies, sql, args);
+	public <E> List<E> list(Class<E> clazz, OrderBy orderBy, String sql, Object... args) {
+		return dao.list(clazz, orderBy, sql, args);
 	}
 
 	@Override
-	public <E> List<E> list(Class<E> clazz, List<OrderBy> orderBies, String sql, Map<?, ?> map) {
-		return dao.list(clazz, orderBies, sql, map);
+	public <E> List<E> list(Class<E> clazz, OrderBy orderBy, String sql, Map<?, ?> map) {
+		return dao.list(clazz, orderBy, sql, map);
 	}
 
 	@Override
@@ -178,13 +178,13 @@ public class BasicServiceImpl implements BasicService {
 	}
 
 	@Override
-	public List<Object[]> arrays(List<OrderBy> orderBies, String sql, Object... args) {
-		return dao.arrays(orderBies, sql, args);
+	public List<Object[]> arrays(OrderBy orderBy, String sql, Object... args) {
+		return dao.arrays(orderBy, sql, args);
 	}
 
 	@Override
-	public List<Object[]> arrays(List<OrderBy> orderBies, String sql, Map<?, ?> map) {
-		return dao.arrays(orderBies, sql, map);
+	public List<Object[]> arrays(OrderBy orderBy, String sql, Map<?, ?> map) {
+		return dao.arrays(orderBy, sql, map);
 	}
 
 	@Override

@@ -193,10 +193,10 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> List<E> list(List<OrderBy> orderBies, String sql, Object... args) {
+	public <E> List<E> list(OrderBy orderBy, String sql, Object... args) {
 		Assert.hasText(sql, "sql is required!");
 
-		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBies, false), args);
+		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBy, false), args);
 		query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 
 		List<ResultMap> resultList = query.list();
@@ -204,10 +204,10 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> List<E> list(List<OrderBy> orderBies, String sql, Map<?, ?> map) {
+	public <E> List<E> list(OrderBy orderBy, String sql, Map<?, ?> map) {
 		Assert.hasText(sql, "sql is required!");
 
-		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBies, false), map);
+		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBy, false), map);
 		query.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
 
 		List<ResultMap> resultList = query.list();
@@ -215,20 +215,20 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> List<E> list(Class<E> clazz, List<OrderBy> orderBies, String sql, Object... args) {
+	public <E> List<E> list(Class<E> clazz, OrderBy orderBy, String sql, Object... args) {
 		Assert.hasText(sql, "sql is required!");
 
-		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBies, false), args);
+		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBy, false), args);
 		query.setResultTransformer(Transformers.aliasToBean(clazz));
 
 		return query.list();
 	}
 
 	@Override
-	public <E> List<E> list(Class<E> clazz, List<OrderBy> orderBies, String sql, Map<?, ?> map) {
+	public <E> List<E> list(Class<E> clazz, OrderBy orderBy, String sql, Map<?, ?> map) {
 		Assert.hasText(sql, "sql is required!");
 
-		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBies, false), map);
+		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBy, false), map);
 		query.setResultTransformer(Transformers.aliasToBean(clazz));
 
 		return query.list();
@@ -290,12 +290,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), args);
-		pagin.setTotal(count);
+		pagin.count(count);
 
 		if (count == 0) {
-			pagin.setList(new ArrayList<Object>());
+			pagin.list(new ArrayList<Object>());
 		} else {
-			pagin.setList(list(pagin, sql, args));
+			pagin.list(list(pagin, sql, args));
 		}
 
 		return pagin;
@@ -307,12 +307,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), map);
-		pagin.setTotal(count);
+		pagin.count(count);
 
 		if (count == 0) {
-			pagin.setList(new ArrayList<Object>());
+			pagin.list(new ArrayList<Object>());
 		} else {
-			pagin.setList(list(pagin, sql, map));
+			pagin.list(list(pagin, sql, map));
 		}
 
 		return pagin;
@@ -324,12 +324,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), args);
-		pagin.setTotal(count);
+		pagin.count(count);
 
 		if (count == 0) {
-			pagin.setList(new ArrayList<Object>());
+			pagin.list(new ArrayList<Object>());
 		} else {
-			pagin.setList(list(clazz, pagin, sql, args));
+			pagin.list(list(clazz, pagin, sql, args));
 		}
 
 		return pagin;
@@ -341,12 +341,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), map);
-		pagin.setTotal(count);
+		pagin.count(count);
 
 		if (count == 0) {
-			pagin.setList(new ArrayList<Object>());
+			pagin.list(new ArrayList<Object>());
 		} else {
-			pagin.setList(list(clazz, pagin, sql, map));
+			pagin.list(list(clazz, pagin, sql, map));
 		}
 
 		return pagin;
@@ -389,18 +389,18 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public List<Object[]> arrays(List<OrderBy> orderBies, String sql, Object... args) {
+	public List<Object[]> arrays(OrderBy orderBy, String sql, Object... args) {
 		Assert.hasText(sql, "sql is required!");
 
-		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBies, true), args);
+		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBy, true), args);
 		return query.list();
 	}
 
 	@Override
-	public List<Object[]> arrays(List<OrderBy> orderBies, String sql, Map<?, ?> map) {
+	public List<Object[]> arrays(OrderBy orderBy, String sql, Map<?, ?> map) {
 		Assert.hasText(sql, "sql is required!");
 
-		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBies, true), map);
+		SQLQuery query = createSQLQuery(QueryTool.appendOrderBy(sql, orderBy, true), map);
 		return query.list();
 	}
 
@@ -458,20 +458,20 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> List<E> list4Hql(List<OrderBy> orderBies, String hql, Object... args) {
+	public <E> List<E> list4Hql(OrderBy orderBy, String hql, Object... args) {
 		Assert.hasText(hql, "hql is required!");
 
-		Query query = createQuery(QueryUtil.appendOrderBy(hql, orderBies, true), args);
+		Query query = createQuery(QueryUtil.appendOrderBy(hql, orderBy, true), args);
 
 		List<Object> list = query.list();
 		return (List<E>) list;
 	}
 
 	@Override
-	public <E> List<E> list4Hql(List<OrderBy> orderBies, String hql, Map<?, ?> map) {
+	public <E> List<E> list4Hql(OrderBy orderBy, String hql, Map<?, ?> map) {
 		Assert.hasText(hql, "hql is required!");
 
-		Query query = createQuery(QueryUtil.appendOrderBy(hql, orderBies, true), map);
+		Query query = createQuery(QueryUtil.appendOrderBy(hql, orderBy, true), map);
 
 		List<Object> list = query.list();
 		return (List<E>) list;

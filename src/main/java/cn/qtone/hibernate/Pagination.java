@@ -12,9 +12,10 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
  */
 public class Pagination {
 
-	private int first = 0;// 首记录索引
-	private int pageSize = 10;// 每页记录数
-	private long total = 0L;// 总记录数
+	private int index = 0;// 首记录索引
+	private int limit = 10;// 每页记录数
+	private long count = 0L;// 总记录数
+	private OrderBy orderBy;
 
 	@SuppressWarnings("rawtypes")
 	private List list = new ArrayList();// 数据集合
@@ -22,96 +23,56 @@ public class Pagination {
 	public Pagination() {
 	}
 
-	public Pagination(Integer first, Integer size, String sort, String order) {
-		setFirst(first);
-		setPageSize(size);
-
-		setOrderBy(sort, order);
+	public Pagination(Integer first, Integer size, OrderBy orderBy) {
+		index(first);
+		limit(size);
+		orderBy(orderBy);
 	}
 
-	/**
-	 * 排序
-	 */
-	private List<OrderBy> orderByList = new ArrayList<OrderBy>();
-
-	public int getFirst() {
-		return first;
+	public int index() {
+		return index;
 	}
 
-	public void setFirst(int first) {
-		if (first > 0) {
-			this.first = first;
+	public void index(int index) {
+		if (index > 0) {
+			this.index = index;
 		}
 	}
 
-	public int getPageSize() {
-		return pageSize;
+	public int limit() {
+		return limit;
 	}
 
-	public void setPageSize(int pageSize) {
-		if (pageSize > 0) {
-			this.pageSize = pageSize;
+	public void limit(int limit) {
+		if (limit > 0) {
+			this.limit = limit;
 		}
 	}
 
-	public long getTotal() {
-		return total;
+	public long count() {
+		return count;
 	}
 
-	public void setTotal(long total) {
-		this.total = total;
+	public void count(long count) {
+		this.count = count;
 	}
 
-//	public Integer getTotalPage() {
-//		return Long.valueOf((total + size - 1) / size).intValue();
-//	}
+	public OrderBy orderBy() {
+		return orderBy;
+	}
+
+	public void orderBy(OrderBy orderBy) {
+		this.orderBy = orderBy;
+	}
 
 	@SuppressWarnings("rawtypes")
-	public List getList() {
+	public List list() {
 		return list;
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void setList(List list) {
+	public void list(List list) {
 		this.list = list;
-	}
-
-	public void setOrderBy(String property, OrderType orderType) {
-		orderByList.clear();
-		if (property != null && !"".equals(property)) {
-			orderByList.add(this.new OrderBy(property, orderType));
-		}
-	}
-
-	public void addOrderBy(String property, OrderType orderType) {
-		if (property != null && !"".equals(property)) {
-			orderByList.add(this.new OrderBy(property, orderType));
-		}
-	}
-
-	public void setOrderBy(String props, String types) {
-		orderByList.clear();
-		if (props != null && !"".equals(props) && types != null && !"".equals(types)) {
-			String[] prop = props.split(",");
-			String[] type = types.split(",");
-			for (int i = 0; i < prop.length; i++) {
-				orderByList.add(this.new OrderBy(prop[i], OrderType.valueOf(type[i].toLowerCase())));
-			}
-		}
-	}
-
-	public void clearOrderBy() {
-		orderByList.clear();
-	}
-
-	public List<OrderBy> getOrderByList() {
-		return orderByList;
-	}
-
-	public void setOrderByList(List<OrderBy> orderByList) {
-		if (orderByList != null) {
-			this.orderByList = orderByList;
-		}
 	}
 
 	public String toString() {

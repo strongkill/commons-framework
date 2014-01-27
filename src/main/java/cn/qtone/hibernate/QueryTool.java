@@ -5,7 +5,6 @@ import java.util.List;
 
 import cn.qtone.hibernate.Pagination.OrderBy;
 import cn.qtone.util.ColumnAndAliasConverter;
-import cn.qtone.util.ListUtil;
 import cn.qtone.util.StringUtil;
 
 /**
@@ -137,7 +136,7 @@ public class QueryTool {
 	 * @return 拼接后的查询语句
 	 */
 	public static final String appendOrderBy(String ql, Pagination pagin, boolean isHql) {
-		return appendOrderBy(ql, pagin.getOrderByList(), isHql);
+		return appendOrderBy(ql, pagin.orderBy(), isHql);
 	}
 
 	/**
@@ -148,20 +147,13 @@ public class QueryTool {
 	 * @param isHql 是否HQL语句
 	 * @return 拼接后的查询语句
 	 */
-	public static final String appendOrderBy(String ql, List<OrderBy> orderBies, boolean isHql) {
-		if (StringUtil.hasText(ql) && ListUtil.hasItem(orderBies)) {
+	public static final String appendOrderBy(String ql, OrderBy orderBy, boolean isHql) {
+		if (StringUtil.hasText(ql) && orderBy != null) {
 			String alias = null;
 			StringBuilder ob = new StringBuilder(" order by ");
 
-			OrderBy orderBy = orderBies.get(0);
 			alias = isHql ? ColumnAndAliasConverter.columnToAlias(orderBy.getProperty()) : ColumnAndAliasConverter.aliasToColumn(orderBy.getProperty());
 			ob.append(alias + " " + orderBy.getOrderType());
-
-			for (int i = 1; i < orderBies.size(); i++) {
-				orderBy = orderBies.get(i);
-				alias = isHql ? ColumnAndAliasConverter.columnToAlias(orderBy.getProperty()) : ColumnAndAliasConverter.aliasToColumn(orderBy.getProperty());
-				ob.append("," + alias + " " + orderBy.getOrderType());
-			}
 
 			ql += ob;
 		}
