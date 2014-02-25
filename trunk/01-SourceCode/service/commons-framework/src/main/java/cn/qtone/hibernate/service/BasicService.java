@@ -98,7 +98,7 @@ public interface BasicService {
 	 * @return 单值返回查询字段对应类型;单行返回Map<String, Object>,key为查询字段别名
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(String sql, Object... args);
+	public <E> E uniqueResult(Class<E> clazz, String sql, Object... args);
 
 	/**
 	 * 查询单值/单行
@@ -118,7 +118,7 @@ public interface BasicService {
 	 * @return 单值返回查询字段对应类型;单行返回Map<String, Object>实例,key为查询字段别名
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(String sql, Map<?, ?> map);
+	public <E> E uniqueResult(Class<E> clazz, String sql, Map<?, ?> map);
 
 	/**
 	 * 查询单行
@@ -139,7 +139,7 @@ public interface BasicService {
 	 * @return clazz实例
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(Class<E> clazz, String sql, Object... args);
+	public <E> E uniquePojo(Class<E> clazz, String sql, Object... args);
 
 	/**
 	 * 查询单行
@@ -161,7 +161,7 @@ public interface BasicService {
 	 * @return clazz实例
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(Class<E> clazz, String sql, Map<?, ?> map);
+	public <E> E uniquePojo(Class<E> clazz, String sql, Map<?, ?> map);
 
 	/**
 	 * 查询列表

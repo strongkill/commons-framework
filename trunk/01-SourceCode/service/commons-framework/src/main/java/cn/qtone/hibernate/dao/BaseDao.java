@@ -98,7 +98,7 @@ public abstract interface BaseDao {
 	 * @return 单值返回查询字段对应类型;单行返回{@link ResultMap}
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(String sql, Object... args);
+	public <E> E uniqueResult(Class<E> clazz, String sql, Object... args);
 
 	/**
 	 * 查询单值/单行
@@ -118,7 +118,7 @@ public abstract interface BaseDao {
 	 * @return 单值返回查询字段对应类型;单行返回{@link ResultMap}
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(String sql, Map<?, ?> map);
+	public <E> E uniqueResult(Class<E> clazz, String sql, Map<?, ?> map);
 
 	/**
 	 * 查询单行(返回值为POJO)
@@ -139,7 +139,7 @@ public abstract interface BaseDao {
 	 * @return clazz实例
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(Class<E> clazz, String sql, Object... args);
+	public <E> E uniquePojo(Class<E> clazz, String sql, Object... args);
 
 	/**
 	 * 查询单行(返回值为POJO)
@@ -161,7 +161,7 @@ public abstract interface BaseDao {
 	 * @return clazz实例
 	 * @author 卢俊生, 2012-8-24
 	 */
-	public <E> E uniqueResult(Class<E> clazz, String sql, Map<?, ?> map);
+	public <E> E uniquePojo(Class<E> clazz, String sql, Map<?, ?> map);
 
 	/**
 	 * 查询列表

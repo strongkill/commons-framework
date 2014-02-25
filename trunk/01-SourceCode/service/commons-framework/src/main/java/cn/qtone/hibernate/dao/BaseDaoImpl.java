@@ -59,7 +59,7 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> E uniqueResult(String sql, Object... args) {
+	public <E> E uniqueResult(Class<E> clazz, String sql, Object... args) {
 		Assert.hasText(sql, "sql is required!");
 
 		SQLQuery query = createSQLQuery(sql, args);
@@ -70,7 +70,7 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> E uniqueResult(String sql, Map<?, ?> map) {
+	public <E> E uniqueResult(Class<E> clazz, String sql, Map<?, ?> map) {
 		Assert.hasText(sql, "sql is required!");
 
 		SQLQuery query = createSQLQuery(sql, map);
@@ -81,7 +81,7 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> E uniqueResult(Class<E> clazz, String sql, Object... args) {
+	public <E> E uniquePojo(Class<E> clazz, String sql, Object... args) {
 		Assert.hasText(sql, "sql is required!");
 
 		SQLQuery query = createSQLQuery(sql, args);
@@ -91,7 +91,7 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 	}
 
 	@Override
-	public <E> E uniqueResult(Class<E> clazz, String sql, Map<?, ?> map) {
+	public <E> E uniquePojo(Class<E> clazz, String sql, Map<?, ?> map) {
 		Assert.hasText(sql, "sql is required!");
 
 		SQLQuery query = createSQLQuery(sql, map);
@@ -290,12 +290,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), args);
-		pagin.count(count);
+		pagin.setCount(Long.valueOf(count).intValue());
 
 		if (count == 0) {
-			pagin.list(new ArrayList<Object>());
+			pagin.setList(new ArrayList<Object>());
 		} else {
-			pagin.list(list(pagin, sql, args));
+			pagin.setList(list(pagin, sql, args));
 		}
 
 		return pagin;
@@ -307,12 +307,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), map);
-		pagin.count(count);
+		pagin.setCount(Long.valueOf(count).intValue());
 
 		if (count == 0) {
-			pagin.list(new ArrayList<Object>());
+			pagin.setList(new ArrayList<Object>());
 		} else {
-			pagin.list(list(pagin, sql, map));
+			pagin.setList(list(pagin, sql, map));
 		}
 
 		return pagin;
@@ -324,12 +324,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), args);
-		pagin.count(count);
+		pagin.setCount(Long.valueOf(count).intValue());
 
 		if (count == 0) {
-			pagin.list(new ArrayList<Object>());
+			pagin.setList(new ArrayList<Object>());
 		} else {
-			pagin.list(list(clazz, pagin, sql, args));
+			pagin.setList(list(clazz, pagin, sql, args));
 		}
 
 		return pagin;
@@ -341,12 +341,12 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 		Assert.hasText(sql, "sql is required!");
 
 		long count = uniqueResult(long.class, QueryTool.toCountSQL(sql), map);
-		pagin.count(count);
+		pagin.setCount(Long.valueOf(count).intValue());
 
 		if (count == 0) {
-			pagin.list(new ArrayList<Object>());
+			pagin.setList(new ArrayList<Object>());
 		} else {
-			pagin.list(list(clazz, pagin, sql, map));
+			pagin.setList(list(clazz, pagin, sql, map));
 		}
 
 		return pagin;
@@ -553,17 +553,17 @@ public abstract class BaseDaoImpl<T extends SharedSessionContract> extends Base<
 			sql.append(" and " + pkColunm + " <> :pk ");
 		}
 
-		long rows = uniqueResult(long.class, sql.toString(), MapUtil.toMap("value,pk", value, pkValue));
+		long rows = uniquePojo(long.class, sql.toString(), MapUtil.toMap("value,pk", value, pkValue));
 
 		return rows == 0;
 	}
 
 	@Override
 	public String generateTreeCode(String table, String column, String pk, String parent, Object parentVal, int length, String firstCode) {
-		String code = uniqueResult(String.class, "select max(" + column + ") from " + table + " where " + parent + "=?", parentVal);
+		String code = uniquePojo(String.class, "select max(" + column + ") from " + table + " where " + parent + "=?", parentVal);
 
 		if (code == null) {
-			code = uniqueResult(String.class, "select " + column + " from " + table + " where " + pk + "=?", parentVal);
+			code = uniquePojo(String.class, "select " + column + " from " + table + " where " + pk + "=?", parentVal);
 			if (code == null) {
 				code = firstCode;
 			} else {

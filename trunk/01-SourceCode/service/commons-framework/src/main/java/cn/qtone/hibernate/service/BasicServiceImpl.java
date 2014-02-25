@@ -38,16 +38,6 @@ public class BasicServiceImpl implements BasicService {
 	}
 
 	@Override
-	public <E> E uniqueResult(String sql, Object... args) {
-		return dao.uniqueResult(sql, args);
-	}
-
-	@Override
-	public <E> E uniqueResult(String sql, Map<?, ?> map) {
-		return dao.uniqueResult(sql, map);
-	}
-
-	@Override
 	public <E> E uniqueResult(Class<E> clazz, String sql, Object... args) {
 		return dao.uniqueResult(clazz, sql, args);
 	}
@@ -55,6 +45,16 @@ public class BasicServiceImpl implements BasicService {
 	@Override
 	public <E> E uniqueResult(Class<E> clazz, String sql, Map<?, ?> map) {
 		return dao.uniqueResult(clazz, sql, map);
+	}
+
+	@Override
+	public <E> E uniquePojo(Class<E> clazz, String sql, Object... args) {
+		return dao.uniquePojo(clazz, sql, args);
+	}
+
+	@Override
+	public <E> E uniquePojo(Class<E> clazz, String sql, Map<?, ?> map) {
+		return dao.uniquePojo(clazz, sql, map);
 	}
 
 	@Override

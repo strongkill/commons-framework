@@ -39,11 +39,11 @@ public abstract class Base<S extends SharedSessionContract> {
 
 	public abstract S getSession();
 
-	public Query setPaginParameters(Query query, int first, int size) {
+	public Query setPaginParameters(Query query, int index, int limit) {
 		Assert.notNull(query, "query is required!");
 
-		query.setFirstResult(first > 0 ? first : 0);
-		query.setMaxResults(size > 0 ? size : 10);
+		query.setFirstResult(index > 0 ? index : 0);
+		query.setMaxResults(limit > 0 ? limit : 10);
 		return query;
 	}
 
@@ -51,8 +51,8 @@ public abstract class Base<S extends SharedSessionContract> {
 		Assert.notNull(query, "query is required!");
 		Assert.notNull(pagin, "pagin is required!");
 
-		query.setFirstResult(pagin.index());
-		query.setMaxResults(pagin.limit());
+		query.setFirstResult(pagin.getIndex());
+		query.setMaxResults(pagin.getLimit());
 		return query;
 	}
 

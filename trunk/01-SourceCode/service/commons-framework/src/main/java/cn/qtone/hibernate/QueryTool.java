@@ -136,7 +136,7 @@ public class QueryTool {
 	 * @return 拼接后的查询语句
 	 */
 	public static final String appendOrderBy(String ql, Pagination pagin, boolean isHql) {
-		return appendOrderBy(ql, pagin.orderBy(), isHql);
+		return appendOrderBy(ql, pagin.getOrderBy(), isHql);
 	}
 
 	/**
